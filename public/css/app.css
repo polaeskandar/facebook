@@ -1,0 +1,16 @@
+#app-root {
+  padding: 1rem;
+}
+
+.auth-form {
+  width: 500px;
+  margin: 60px auto;
+}
+
+@media screen and (max-width: 768px) {
+  .auth-form {
+    padding: 0 2rem;
+    width: 100%;
+  }
+}
+
