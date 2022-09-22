@@ -1,3 +1,4 @@
-let mix = require("laravel-mix");
+let laravelMix = require("laravel-mix");
 
-mix.css("./resources/css/app.css", "public/css/app.css");
+laravelMix.minify(["./resources/css/app.css", "./resources/css/auth.css"], "public/css/app.css");
+

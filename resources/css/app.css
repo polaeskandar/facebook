@@ -1,15 +1,22 @@
 #app-root {
   padding: 1rem;
+  display: flex;
+  gap: 2rem;
 }
 
-.auth-form {
-  width: 500px;
-  margin: 60px auto;
+.shortcuts,
+.friends {
+  /*flex-basis: 25%;*/
+  flex: 1;
+  flex-shrink: 0;
 }
 
-@media screen and (max-width: 768px) {
-  .auth-form {
-    padding: 0 2rem;
-    width: 100%;
-  }
+.posts {
+  /*flex-basis: 100%;*/
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 2;
+  flex-shrink: 0;
 }
+

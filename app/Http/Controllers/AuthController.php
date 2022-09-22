@@ -33,7 +33,13 @@ class AuthController extends Controller {
       'remember' => ['boolean']
     ]);
 
+    $user = User::where('email', $validated['email'])->first();
 
+    if (!Hash::check($validated['password'], $user->password))
+      return redirect()->back()->withErrors(['password' => 'The entered password is wrong!']);
+
+    Auth::login($user, $validated['remember']);
+    return redirect()->route('index');
   }
 
   public function logout(Request $request) {

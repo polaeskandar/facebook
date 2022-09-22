@@ -1,4 +1,4 @@
-@extends('templates.template')
+@extends('template.template')
 @section('content')
 
 <form class="auth-form" method="POST" action="{{ route('register') }}">
@@ -40,7 +40,7 @@
         <label class="form-check-label" for="remember">Remember me</label>
       </div>
     </div>
-    <div class="col"><a href="#">Forgot password?</a></div>
+    <div class="col"><a href="{{ route('forget-password.form') }}">Forgot password?</a></div>
   </div>
 
   <div class="mb-4"><a href="{{ route('login.form') }}">Already have an account? Login here!</a></div>
