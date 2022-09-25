@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -17,16 +18,15 @@ Route::get('/', function () {
 })->name('index');
 
 Route::prefix('/auth')->group(function () {
-  Route::post('/login', [AuthController::class, 'login'])->name('login');
+  Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
   Route::get('/login', fn () => view('auth.login'))->name('login.form')->middleware('guest');
-  Route::post('/register', [AuthController::class, 'register'])->name('register');
+  Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
   Route::get('/register', fn () => view('auth.register'))->name('register.form')->middleware('guest');
-  Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+  Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
   Route::view('/forget-password', 'auth.forget-password')->name('forget-password.form')->middleware('guest');
-
   Route::post('/forgot-password/send-link', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
+    $request->validate(['email' => ['required', 'email']]);
     $status = Password::sendResetLink($request->only('email'));
 
     return $status === Password::RESET_LINK_SENT
@@ -62,6 +62,9 @@ Route::prefix('/auth')->group(function () {
       : back()->withErrors(['email' => [__($status)]]);
   })->middleware('guest')->name('password.update');
 });
+
+Route::get('profile-image/get', [UserController::class, 'getProfileImage'])->name('user.profile-image.get');
+Route::post('profile-image/upload', [UserController::class, 'uploadProfileImage'])->name('user.profile-image.upload');
 
 Route::prefix('/posts')->group(function () {
   Route::post('/create', [PostController::class, 'createPost'])->name('post.create');

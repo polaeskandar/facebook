@@ -4,6 +4,10 @@
   gap: 2rem;
 }
 
+ul {
+  margin: 0;
+}
+
 .shortcuts,
 .friends {
   /*flex-basis: 25%;*/
@@ -19,4 +23,3 @@
   flex: 2;
   flex-shrink: 0;
 }
-

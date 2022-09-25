@@ -12,9 +12,11 @@
     @endif
 
     @csrf
+    <input type="hidden" name="token" value="{{ $token }}" />
+
     <div class="form-outline mb-4">
       <label class="form-label" for="email">Email address</label>
-      <input type="email" id="email" name="email" class="form-control" required readonly />
+      <input type="email" id="email" value="{{ Request::get('email') }}" name="email" class="form-control" required readonly />
     </div>
 
     <div class="form-outline mb-4">

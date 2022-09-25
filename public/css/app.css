@@ -1,1 +1,1 @@
-#app-root{padding:1rem;display:flex;gap:2rem}.friends,.shortcuts{flex:1;flex-shrink:0}.posts{display:flex;flex-direction:column;gap:1.25rem;flex:2;flex-shrink:0}.auth-form{width:500px;margin:60px auto}@media screen and (max-width:768px){.auth-form{padding:0 2rem;width:100%}}
+#app-root{padding:1rem;display:flex;gap:2rem}ul{margin:0}.friends,.shortcuts{flex:1;flex-shrink:0}.posts{display:flex;flex-direction:column;gap:1.25rem;flex:2;flex-shrink:0}.auth-form{width:500px;margin:60px auto}@media screen and (max-width:768px){.auth-form{padding:0 2rem;width:100%}}

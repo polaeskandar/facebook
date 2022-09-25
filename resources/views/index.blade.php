@@ -6,6 +6,7 @@
     </div>
   </div>
   <div class="posts">
+    @include('components.upload-image')
     @auth
       @include('components.new-post')
     @endauth

@@ -33,14 +33,9 @@
     <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required />
   </div>
 
-  <div class="row mb-4">
-    <div class="col d-flex justify-content-center">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="1" name="remember" id="remember" />
-        <label class="form-check-label" for="remember">Remember me</label>
-      </div>
-    </div>
-    <div class="col"><a href="{{ route('forget-password.form') }}">Forgot password?</a></div>
+  <div class="form-check">
+    <input class="form-check-input" name="remember" type="checkbox" value="1" id="remember" checked />
+    <label class="form-check-label" for="remember">Remember me</label>
   </div>
 
   <div class="mb-4"><a href="{{ route('login.form') }}">Already have an account? Login here!</a></div>
