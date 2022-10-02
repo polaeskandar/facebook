@@ -12,7 +12,14 @@ class PostController extends Controller {
       'user_id' => ['required']
     ]);
 
-    Post::create($validated);
+    $cleanPost = preg_replace("/<iframe.*?>/", "", $validated['body']);
+    $cleanPost = preg_replace("/<script(.*?)>(.*?)<\/script>/", "", $cleanPost);
+
+    Post::create([
+      'body' => $cleanPost,
+      'user_id' => $validated['user_id']
+    ]);
+
     return redirect()->back();
   }
 }
