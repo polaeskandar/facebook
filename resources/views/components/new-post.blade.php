@@ -1,6 +1,5 @@
 <div class="card new-post">
   <div class="card-body">
-    @include('components.errors-container')
     <h5 class="card-title">What's on your mind?</h5>
     <form action="{{ route('post.create') }}" method="POST">
       @csrf

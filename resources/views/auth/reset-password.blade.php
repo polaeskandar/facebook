@@ -1,7 +1,6 @@
 @extends('template.template')
 @section('content')
   <form class="auth-form" method="POST" action="{{ route('password.update') }}">
-    @include('components.errors-container')
     @csrf
     <input type="hidden" name="token" value="{{ $token }}"/>
     <div class="form-outline mb-4">

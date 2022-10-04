@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class AuthController extends Controller {
     ]);
 
 //    $role = Role::whereRole('user')->first();
-//    $user->roles()->associate($role);
+//    $user->roles()->attach($role);
 
     Auth::login($user, $validated['remember']);
     return redirect()->route('index');
@@ -42,8 +41,9 @@ class AuthController extends Controller {
 
     $user = User::where('email', $validated['email'])->first();
 
-    if (!Hash::check($validated['password'], $user->password))
+    if (!Hash::check($validated['password'], $user->password)) {
       return redirect()->back()->withErrors(['password' => 'The entered password is wrong!']);
+    }
 
     Auth::login($user, $validated['remember']);
     return redirect()->route('index');

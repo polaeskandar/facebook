@@ -1,7 +1,6 @@
 @extends('template.template')
 @section('content')
   <form class="auth-form" method="POST" action="{{ route('login') }}">
-    @include('components.errors-container')
     @csrf
     <div class="form-outline mb-4">
       <label class="form-label" for="email">Email address</label>

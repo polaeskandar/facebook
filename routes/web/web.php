@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
   return view('index', [
-    'posts' => Post::all()
+    'posts' => Post::with(['comments', 'comments.user', 'user'])->get(),
   ]);
 })->name('index');
 
