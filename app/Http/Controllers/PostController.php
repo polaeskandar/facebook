@@ -9,17 +9,18 @@ class PostController extends Controller {
   public function createPost(Request $request) {
     $validated = $request->validate([
       'body' => ['required'],
-      'user_id' => ['required']
+      'user_id' => ['required'],
     ]);
 
-    $cleanPost = preg_replace("/<iframe.*?>/", "", $validated['body']);
-    $cleanPost = preg_replace("/<script(.*?)>(.*?)<\/script>/", "", $cleanPost);
-
     Post::create([
-      'body' => $cleanPost,
+      'body' => $validated['body'],
       'user_id' => $validated['user_id']
     ]);
 
-    return redirect()->back();
+    $postsDocument = view('components.posts', [
+      'posts' => Post::with(['comments', 'comments.user', 'user'])->orderBy('created_at', 'desc')->get(),
+    ])->render();
+
+    return ['posts' => $postsDocument];
   }
 }

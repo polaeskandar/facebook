@@ -6,7 +6,7 @@ window.addEventListener('load', function () {
   errorsContainerElement && document.querySelector('.errors-container').classList.add('active');
 });
 
-// Image Upload Container on Index Page
+// Profile Image Upload Container on Index Page
 const imageUploadContainer = document.getElementById('upload-image-container');
 const closeImageUploadContainerBtn = document.getElementById('upload-image-close');
 

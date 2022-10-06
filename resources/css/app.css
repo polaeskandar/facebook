@@ -18,7 +18,7 @@ ul {
   flex-shrink: 0;
 }
 
-.posts {
+.posts, .posts .posts-container {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
