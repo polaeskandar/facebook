@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="_token" content="{{ csrf_token() }}">
     <title>FaceBook</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
@@ -16,5 +17,11 @@
     @include('components.navbar')
     <div id="app-root">@yield('content')</div>
     @include('components.errors-container')
+    @auth
+      <script>if (!localStorage.getItem('user_id')) localStorage.setItem('user_id', '{{ auth()->id() }}');</script>
+    @endauth
+    @guest
+      <script>if (localStorage.getItem('user_id')) localStorage.removeItem('user_id');</script>
+    @endguest
   </body>
 </html>

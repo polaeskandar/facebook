@@ -2,14 +2,7 @@
   @forelse($posts as $post)
     <div class="card" id="post-{{ $post->id }}">
       <div class="card-body d-flex flex-column">
-        <div class="post">
-          <h5 class="card-title d-flex align-items-center justify-content-between mb-0">
-            <p class="username d-flex align-items-center gap-2">{{ $post->user->name }} <span class="badge text-bg-primary">User</span></p>
-            <p class="dates text-muted fs-6 fw-normal">Posted {{ $post->created_at->diffForHumans() }}</p>
-          </h5>
-          {{--<p class="card-text">{!! substr(nl2br($post->body), 0, 400) !!} ...</p>--}}
-          <p class="card-text">{!! $post->body !!}</p>
-        </div>
+        <x-posts.post :post="$post"></x-posts.post>
 
         <small class="text-muted align-self-end mt-3">{{ $post->comments->count() }} Comment(s)</small>
         <hr class="mb-0"/>
@@ -31,6 +24,7 @@
             Be the first one to comment on this post...
           @endforelse
         </div>
+
 
       </div>
     </div>

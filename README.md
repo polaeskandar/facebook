@@ -29,6 +29,7 @@
 2) Add show/hide to comments section of each post (JavaScript Exercise)
 3) Add creating a comment functionality (JavaScript Exercise)
 4) Add delete, edit posts and comments (JavaScript Exercise)
+5) Add a dark mode
 
 ---
 

@@ -8,9 +8,9 @@
   <div class="posts">
     @include('components.upload-image')
     @auth
-      @include('components.new-post')
+      @include('posts.new-post')
     @endauth
-    @include('components.posts')
+    @include('posts.posts')
   </div>
   <div class="friends">
     <div class="alert alert-primary" role="alert">
