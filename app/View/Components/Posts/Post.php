@@ -9,17 +9,17 @@ class Post extends Component {
   public PostModel $post;
   public string $author;
   public string $postedOn;
-  public string $fullBody;
-  public string $body;
   public int $bodyLength;
+  public string $fullBody;
+  public string $subBody;
 
   public function __construct(PostModel $post) {
     $this->post = $post;
     $this->author = $post->user->name;
     $this->postedOn = "Posted {$post->created_at->diffForHumans()}";
+    $this->bodyLength = strlen($post->body);
     $this->fullBody = nl2br($post->body);
-    $this->body = substr($this->fullBody, 0, 400);
-    $this->bodyLength = strlen($this->fullBody);
+    $this->subBody = substr($post->body, 0, 400);
   }
 
   public function render() { return view('posts.post'); }

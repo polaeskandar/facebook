@@ -7,6 +7,6 @@
       <input type="email" name="email" id="email" class="form-control"/>
     </div>
     <div class="mb-4"><a href="{{ route('register.form') }}">Don't have an account? Register one here!</a></div>
-    <button type="submit" class="btn btn-primary btn-block w-100 mb-4 ">Send Reset Link</button>
+    <button type="submit" class="btn btn-primary btn-block w-100 mb-4">Send Reset Link</button>
   </form>
 @endsection

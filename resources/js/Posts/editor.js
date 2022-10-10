@@ -1,4 +1,4 @@
-import {createPost} from './create-post'
+import { createPost } from './create-post'
 
 const createPostForm = document.getElementById('create-post-form');
 
@@ -14,5 +14,5 @@ createPostForm && createPostForm.addEventListener('submit', function (event) {
   const csrfToken = document.querySelector('meta[name="_token"]').getAttribute('content');
   const body = form.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML;
   const userId = localStorage.getItem('user_id');
-  createPost({csrfToken, body, userId});
+  createPost({ csrfToken, body, userId });
 });

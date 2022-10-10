@@ -20,6 +20,6 @@
       <div class="col"><a href="{{ route('forget-password.form') }}">Forgot password?</a></div>
     </div>
     <div class="mb-4"><a href="{{ route('register.form') }}">Don't have an account? Register one here!</a></div>
-    <button type="submit" class="btn btn-primary btn-block w-100 mb-4 ">Sign in</button>
+    <button type="submit" class="btn btn-primary btn-block w-100 mb-4">Sign in</button>
   </form>
 @endsection

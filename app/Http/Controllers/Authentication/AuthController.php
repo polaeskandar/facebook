@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Authentication;
 
+use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -25,8 +27,8 @@ class AuthController extends Controller {
       'password' => Hash::make($validated['password']),
     ]);
 
-//    $role = Role::whereRole('user')->first();
-//    $user->roles()->attach($role);
+    $role = Role::whereRole('user')->first();
+    $user->roles()->attach($role);
 
     Auth::login($user, $validated['remember']);
     return redirect()->route('index');

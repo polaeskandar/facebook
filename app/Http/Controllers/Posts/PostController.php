@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Posts;
 
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,17 @@ class PostController extends Controller {
       'user_id' => $validated['user_id']
     ]);
 
-    $postsDocument = view('components.posts', [
-      'posts' => Post::with(['comments', 'comments.user', 'user'])->orderBy('created_at', 'desc')->get(),
-    ])->render();
+    $posts = Post::with(['comments', 'comments.user', 'user'])
+      ->orderBy('created_at', 'desc')
+      ->take(20)
+      ->get();
+
+    $postsDocument = view('posts.posts', ['posts' => $posts])->render();
 
     return ['posts' => $postsDocument];
+  }
+
+  public function getPosts(Request $request) {
+    
   }
 }
