@@ -17,6 +17,6 @@
     <x-navbar.navbar></x-navbar.navbar>
     <div id="app-root">@yield('content')</div>
     @include('errors.errors-container')
-    @include('scripts.scripts')
+    <x-scripts.scripts-list></x-scripts.scripts-list>
   </body>
 </html>

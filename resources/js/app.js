@@ -1,8 +1,10 @@
 import './bootstrap';
-import './errors-container';
+
+// Errors
+import './Errors/errors-container';
 
 // User Profile
-import './Profile/profile-image-upload-container'
+import './Profile/index-page-image-uploader'
 
 // Posts
 import './Posts/editor'

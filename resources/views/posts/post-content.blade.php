@@ -4,10 +4,5 @@
     <span class="badge text-bg-primary">User</span>
     <span class="dates text-muted fs-6 fw-normal ms-auto">{{ $postedOn }}</span>
   </h5>
-  <p class="card-text">
-    {!! $subBody !!}
-    @if ($bodyLength > 400)
-      ... Read more
-    @endif
-  </p>
+  <p class="card-text">{!! $fullBody !!}</p>
 </div>

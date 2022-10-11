@@ -1,3 +1,11 @@
+* {
+  border-radius: 0 !important;
+}
+
+table tr th, table tr td {
+  border: 1px solid #ccc !important;
+}
+
 body {
   background: rgba(238, 238, 238, 0.5);
 }

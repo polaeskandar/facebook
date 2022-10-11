@@ -27,7 +27,7 @@
 <div class="card new-post">
   <div class="card-body">
     <h5 class="card-title mb-3">What's on your mind?</h5>
-    <form action="{{ route('post.create') }}" method="POST" id="create-post-form">
+    <form action="{{ $createPostRoute }}" method="POST" id="create-post-form">
       <textarea id="post-editor" name="body"></textarea>
       <button type="submit" class="btn btn-primary mt-3 w-100 d-flex align-items-center justify-content-center gap-1 py-2">
         <span class="material-symbols-outlined">edit_square</span>Create Post

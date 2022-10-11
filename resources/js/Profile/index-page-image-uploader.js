@@ -1,6 +1,6 @@
 // Profile Image Upload Container on Index Page
-const imageUploadContainer = document.getElementById('upload-image-container');
-const closeImageUploadContainerBtn = document.getElementById('upload-image-close');
+const imageUploadContainer = document.getElementById('index-page-image-uploader');
+const closeImageUploadContainerBtn = document.getElementById('index-page-image-uploader-close');
 
 if (localStorage.getItem('closedImageContainer') === 'true' && imageUploadContainer) imageUploadContainer.remove();
 else if (closeImageUploadContainerBtn) closeImageUploadContainerBtn.addEventListener('click', () => {

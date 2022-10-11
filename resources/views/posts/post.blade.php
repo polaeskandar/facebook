@@ -1,5 +1,5 @@
 <div class="post card" id="post-{{ $postId }}">
-  <div class="card-body d-flex flex-column">
+  <div class="card-body">
     <x-posts.post-content :post="$post"></x-posts.post-content>
     <x-posts.post-actions :post="$post"></x-posts.post-actions>
     <hr />

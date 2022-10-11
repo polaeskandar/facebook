@@ -22,22 +22,17 @@ class PostController extends Controller {
       'user_id' => ['required'],
     ]);
 
-    Post::create([
-      'body' => $validated['body'],
-      'user_id' => $validated['user_id']
-    ]);
+    Post::create($validated);
 
     $posts = Post::with(['comments', 'comments.user', 'user'])
       ->orderBy('created_at', 'desc')
-      ->take(20)
+      ->take(10)
       ->get();
 
-    $postsDocument = view('posts.posts', ['posts' => $posts])->render();
+    $postsDocument = view('posts.posts-list', ['posts' => $posts])->render();
 
     return ['posts' => $postsDocument];
   }
 
-  public function getPosts(Request $request) {
-    
-  }
+  public function getPosts(Request $request) {}
 }

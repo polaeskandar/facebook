@@ -13,7 +13,7 @@ class IndexPageController extends Controller {
   public function index(): Factory|View|Application {
     $posts = Post::with(['comments', 'comments.user', 'user'])
       ->orderBy('created_at', 'desc')
-      ->take(20)
+      ->take(10)
       ->get();
 
     return view('index', ['posts' => $posts,]);
