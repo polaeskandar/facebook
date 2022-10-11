@@ -1,0 +1,5 @@
+.shortcuts,
+.friends {
+  flex: 1;
+  flex-shrink: 0;
+}

@@ -2,13 +2,15 @@
   @forelse($posts as $post)
     <x-posts.post :post="$post"></x-posts.post>
   @empty
-    <div class="alert alert-warning">
-      There is nothing here to show ...
-      @auth
-        Add a new post up there!
-      @elseauth
-        Login <a href="{{ route('login.form') }}">here</a> to add a new post.
-      @endauth
-    </div>
+    <x-posts.no-posts></x-posts.no-posts>
   @endforelse
 </div>
+
+<script>
+  document.querySelectorAll('.post-actions').forEach(postActionDiv => {
+    postActionDiv.querySelector('.like').addEventListener('click', function (event) {
+      event.target.classList.toggle('active');
+      console.log(event.target.parentNode.dataset.postId);
+    });
+  });
+</script>

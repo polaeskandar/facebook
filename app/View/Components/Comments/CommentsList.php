@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Posts;
+namespace App\View\Components\Comments;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\Component;
@@ -12,5 +12,7 @@ class CommentsList extends Component {
     $this->comments = $comments;
   }
 
-  public function render() { return view('posts.comments-list'); }
+  public function render() {
+    return view('comments.comments-list');
+  }
 }

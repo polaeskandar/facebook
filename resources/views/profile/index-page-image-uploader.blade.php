@@ -1,4 +1,4 @@
-@if (auth()->id() && !auth()->user()->image)
+@if ($showContainer)
   <div class="card" id="upload-image-container">
     <div class="card-body d-flex flex-column">
       <div class="header d-flex align-items-center justify-content-between mb-3 mt-1">

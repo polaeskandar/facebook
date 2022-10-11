@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Posts;
+namespace App\View\Components\Comments;
 
 use App\Models\Comment as CommentModel;
 use Illuminate\View\Component;
@@ -22,5 +22,7 @@ class Comment extends Component {
     $this->subBody = substr($comment->body, 0, 200);
   }
 
-  public function render() { return view('posts.comment'); }
+  public function render() {
+    return view('comments.comment');
+  }
 }
