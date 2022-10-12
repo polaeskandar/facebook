@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
+/**
+ * Class for handling posts requests.
+ *
+ * @author Pola Eskandar
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 class PostController extends Controller {
 
   /**
@@ -13,8 +20,9 @@ class PostController extends Controller {
    *
    * @param Request $request
    * @return array
-   * @version v1.0.0
-   * @since v1.0.0
+   * @author Pola Eskandar
+   * @version 1.0.0
+   * @since 1.0.0
    */
   public function createPost(Request $request): array {
     $validated = $request->validate([
@@ -30,7 +38,6 @@ class PostController extends Controller {
       ->get();
 
     $postsDocument = view('posts.posts-list', ['posts' => $posts])->render();
-
     return ['posts' => $postsDocument];
   }
 

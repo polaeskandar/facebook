@@ -16,9 +16,15 @@ class RouteServiceProvider extends ServiceProvider {
     $this->routes(function () {
       Route::middleware('api')->prefix('api')->group(base_path('routes/api.php'));
       Route::middleware('web')->group(base_path('routes/web/web.php'));
-      Route::middleware('web')->group(base_path('routes/web/auth.php'));
-      Route::middleware('web')->group(base_path('routes/web/profile.php'));
+
+      // Auth
+      Route::middleware('web')->group(base_path('routes/web/auth/login.php'));
+      Route::middleware('web')->group(base_path('routes/web/auth/register.php'));
+      Route::middleware('web')->group(base_path('routes/web/auth/logout.php'));
+      Route::middleware('web')->group(base_path('routes/web/auth/reset-password.php'));
+
       Route::middleware('web')->group(base_path('routes/web/posts.php'));
+      Route::middleware('web')->group(base_path('routes/web/profile.php'));
     });
   }
 

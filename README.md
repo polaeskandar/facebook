@@ -2,24 +2,18 @@
 
 ### Module 1: Authentication, Posts and Comments.
 
-1) Use components and move css & bootstrap classes to files
-2) Commenting code and using PHPDoc string
-3) Refactoring files
-   * web.php
-   * All views
+1) Refactoring files
    * Split AuthController.php
-   * Add helper function to upload photos
-   * split JS file across multiple files
+   * Add service class to upload photos and handle posts
 
 ---
 
 ### Module 2: Account Verification, Authorization and Improving Posts.
 
 1) Adding WYSIWYG editor
-2) Convert adding a post to axios
-3) Schedule posts to be added in a later time
-4) Implement email verification
-5) Implement authorization
+2) Schedule posts to be added in a later time
+3) Implement email verification
+4) Implement authorization
 
 ---
 

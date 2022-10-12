@@ -1,17 +1,35 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Users;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+/**
+ * Class for handling user requests.
+ *
+ * @author Pola Eskandar
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 class UserController extends Controller {
   public function getProfileImage() {}
 
-  public function uploadProfileImage(Request $request) {
-    $validated = $request->validate(['image' => ['required', 'image', 'mimes:jpg,bmp,png,jpeg']]);
+  /**
+   * Uploading profile image for user.
+   *
+   * @param Request $request
+   * @return RedirectResponse
+   * @author Pola Eskandar
+   * @version 1.0.0
+   * @since 1.0.0
+   */
+  public function uploadProfileImage(Request $request): RedirectResponse {
+    $request->validate(['image' => ['required', 'image', 'mimes:jpg,bmp,png,jpeg']]);
     $user = User::find(auth()->id());
 
     $file = $request->file('image');
