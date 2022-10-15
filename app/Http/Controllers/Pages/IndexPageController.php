@@ -31,6 +31,6 @@ class IndexPageController extends Controller {
       ->take(10)
       ->get();
 
-    return view('index', ['posts' => $posts,]);
+    return view('index', ['posts' => $posts]);
   }
 }

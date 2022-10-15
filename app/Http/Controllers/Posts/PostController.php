@@ -24,22 +24,26 @@ class PostController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function createPost(Request $request): array {
+  public function createPost(Request $request) : array {
     $validated = $request->validate([
       'body' => ['required'],
       'user_id' => ['required'],
     ]);
 
-    Post::create($validated);
+    $post = Post::create($validated);
 
-    $posts = Post::with(['comments', 'comments.user', 'user'])
-      ->orderBy('created_at', 'desc')
-      ->take(10)
-      ->get();
-
-    $postsDocument = view('posts.posts-list', ['posts' => $posts])->render();
-    return ['posts' => $postsDocument];
+    $postDocument = view('posts.post', ['post' => $post, 'postId' => $post->id])->render();
+    return ['posts' => $postDocument];
   }
 
   public function getPosts(Request $request) {}
+
+  public function likeUnlike(Request $request) {
+    $validated = $request->validate([
+      'post_id' => ['required'],
+      'user_id' => ['required']
+    ]);
+
+
+  }
 }

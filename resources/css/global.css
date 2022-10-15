@@ -1,6 +1,9 @@
-* {
-  border-radius: 0 !important;
+*:not(.toast) {
   transition: none !important;
+}
+
+*:not(.spinner-border) {
+  border-radius: 0 !important;
 }
 
 table tr th, table tr td {

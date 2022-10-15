@@ -8,5 +8,7 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Route::prefix('/posts')->group(function () {
-  Route::post('/create', [PostController::class, 'createPost'])->name('post.create');
+  Route::get('/load', [PostController::class, 'getPosts'])->name('posts.get');
+  Route::post('/create', [PostController::class, 'createPost'])->name('posts.create');
+  Route::post('/like-unlike', [PostController::class, '']);
 });
