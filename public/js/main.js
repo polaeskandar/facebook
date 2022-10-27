@@ -2544,8 +2544,29 @@ __webpack_require__.r(__webpack_exports__);
 var createPostForm = document.getElementById('create-post-form');
 createPostForm && tinymce.init({
   selector: '#post-editor',
-  plugins: ['link', 'anchor', 'wordcount', 'code', 'insertdatetime', 'table'],
-  toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link'
+  plugins: ['link', 'anchor', 'wordcount', 'code', 'insertdatetime', 'table', 'image'],
+  toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+  file_picker_callback: function file_picker_callback(callback, value, meta) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.addEventListener('change', function (event) {
+      var file = event.target.files[0];
+      var formData = new FormData();
+      formData.append('_token', document.querySelector('meta[name="_token"]').getAttribute('content'));
+      formData.append('image', file);
+      axios.post('/posts/image/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        callback(response.data.image, {
+          title: file.name
+        });
+      });
+    });
+    input.click();
+  }
 });
 createPostForm && createPostForm.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -2575,9 +2596,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var configureLikes = function configureLikes() {
   document.querySelectorAll('.post-actions').forEach(function (postActionDiv) {
-    postActionDiv.querySelector('.like').addEventListener('click', function (event) {
+    var postId = postActionDiv.dataset.postId;
+    var likeBtn = postActionDiv.querySelector('.like');
+    var formData = new FormData();
+    formData.append('_token', document.querySelector('meta[name="_token"]').getAttribute('content'));
+    formData.append('post_id', postId);
+    formData.append('user_id', localStorage.getItem('user_id'));
+    axios.get('/posts/check-like', {
+      params: {
+        post_id: postId,
+        user_id: localStorage.getItem('user_id')
+      }
+    }).then(function (response) {
+      if (response.data.liked) likeBtn.classList.add('active');else likeBtn.classList.remove('active');
+    });
+    likeBtn.addEventListener('click', function (event) {
       event.target.classList.toggle('active');
-      var postId = event.target.parentNode.dataset.postId;
+      console.log(formData);
+      axios.post('/posts/like-unlike', formData).then(function (response) {
+        console.log(response.data);
+      });
     });
   });
 };

@@ -32,6 +32,10 @@ hr {
   margin: 0;
 }
 
+img {
+  max-width: 100% !important;
+}
+
 .errors-container {
   position: fixed;
   left: 0;
