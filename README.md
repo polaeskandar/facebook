@@ -1,29 +1,19 @@
 # Curriculum
 
-### Module 1: Authentication, Posts and Comments.
-
-1) Refactoring files
-   * Split AuthController.php
-   * Add service class to upload photos and handle posts
-
----
-
 ### Module 2: Account Verification, Authorization and Improving Posts.
 
-1) Adding WYSIWYG editor
-2) Schedule posts to be added in a later time
-3) Implement email verification
-4) Implement authorization
+1) Schedule posts to be added in a later time
+2) Implement email verification
+3) Implement authorization
 
 ---
 
 ### Module 3: Revisiting Comments and Posts (Includes Updates + Improvements).
 
-1) Add likes to post (JavaScript Exercise)
-2) Add show/hide to comments section of each post (JavaScript Exercise)
-3) Add creating a comment functionality (JavaScript Exercise)
-4) Add delete, edit posts and comments (JavaScript Exercise)
-5) Add a dark mode
+1) Add show/hide to comments section of each post (JavaScript Exercise)
+2) Add creating a comment functionality (JavaScript Exercise)
+3) Add delete, edit posts and comments (JavaScript Exercise)
+4) Add a dark mode
 
 ---
 
