@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\FileService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,8 +33,8 @@ class UserController extends Controller {
    */
   public function uploadProfileImage(Request $request) : RedirectResponse {
     $request->validate(['image' => ['required', 'image', 'mimes:jpg,bmp,png,jpeg']]);
-    $user = auth()->user();
     $file = $request->file('image');
+    $user = auth()->user();
     $path = $this->fileService->uploadImage($file, 'public/images');
     $user->image = $path;
     $user->save();

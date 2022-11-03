@@ -16,7 +16,7 @@
         <div class="user-first-letter d-flex align-items-center justify-content-center py-4" style="">{{ strtoupper(auth()->user()->name[0]) }}</div>
       @endif
     </div>
-    <div class="col-8 offset-1 timeline">
+    <div class="col-9 timeline">
       <h5 class="card-title mb-3">My Images</h5>
 
       <div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="true">
