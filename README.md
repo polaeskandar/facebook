@@ -2,8 +2,10 @@
 
 ## Today's and tomorrow's session
 - Separate profile pictures table and proper use of migrations.
-- Refactor JS files.
 - Finish profile page.
+- Refactor JS files.
+- Load posts on scroll.
+- Implement email verification.
 
 ### Module 2: Account Verification, Authorization and Improving Posts.
 
@@ -92,5 +94,5 @@ Recommended: Ecommerce store / News portal / Bookstore / Personal blog
 
 ## Assignments
 
-> [Assignment](https://www.youtube.com/watch?v=uCKCSO8vkiU&list=PLDoPjvoNmBAycCXz5d9WvqlmykUIys5e8&index=2), ***Deadline on 01-11-2022*** 
+> [Assignment](https://www.youtube.com/watch?v=T5QyLcmcMJ4&list=PLDoPjvoNmBAycCXz5d9WvqlmykUIys5e8&index=4), ***Deadline on 01-11-2022*** 
 
