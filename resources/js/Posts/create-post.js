@@ -1,49 +1,45 @@
 import { configureLikes } from "./likes";
+import { notify } from "../Utils/notification";
+import { createPostForm, csrfToken } from "../Utils/constants";
+import { endBtnLoadingState, initBtnLoadingState } from "../Utils/loading-state";
+import { replacePostsContainer } from "../Posts/replacePostsContainer";
 
-const createPost = (postData) => {
-  const formData = new FormData();
-  formData.append('_token', postData.csrfToken);
-  formData.append('body', postData.body);
-  formData.append('user_id', postData.userId);
+export function createPost() {
+  if (!createPostForm) return;
 
-  const submitBtn = document.getElementById('create-post-form-submit');
-  const submitBtnIcon = document.getElementById('create-post-form-submit-icon');
-  submitBtnIcon.classList.add('d-none')
-  submitBtn.classList.add('disabled', 'opacity-75');
-  submitBtn.querySelector('#create-post-form-submit-spinner').classList.remove('d-none');
+  createPostForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const form = event.target;
+    const body = form.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML;
+    const userId = localStorage.getItem('user_id');
 
-  axios.post('/posts/create', formData)
-    .then((response) => {
-      const postsContainer = document.getElementById('posts-container');
+    const formData = new FormData();
+    formData.append('_token', csrfToken);
+    formData.append('body', body);
+    formData.append('user_id', userId);
 
-      if (postsContainer) {
-        let postsElement = '';
-        postsElement += response.data.posts;
-        postsElement += postsContainer.innerHTML;
-        postsContainer.innerHTML = postsElement;
-      }
+    initBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
 
-     configureLikes();
-
-      document.getElementById('create-post-form')
-        .querySelector('.tox-tinymce iframe')
-        .contentDocument
-        .querySelector('body')
-        .innerHTML = '';
-
-      const notificationToast = document.getElementById('notification-toast');
-      notificationToast.querySelector('.toast-body').innerText = 'Post created successfully.';
-      const toast = new bootstrap.Toast(notificationToast);
-      toast.show();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      submitBtnIcon.classList.remove('d-none')
-      submitBtn.classList.remove('disabled', 'opacity-75');
-      submitBtn.querySelector('#create-post-form-submit-spinner').classList.add('d-none');
-    });
+    axios.post('/posts/create', formData)
+      .then((response) => {
+        replacePostsContainer(response.data.posts);
+        configureLikes();
+        clearPostForm();
+        notify('Post created successfully.');
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        endBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
+      });
+  });
 }
 
-export { createPost };
+function clearPostForm() {
+  if (!createPostForm) return;
+
+  createPostForm
+    .querySelector('.tox-tinymce iframe')
+    .contentDocument
+    .querySelector('body')
+    .innerHTML = '';
+}

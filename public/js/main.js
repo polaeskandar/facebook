@@ -2490,44 +2490,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "createPost": () => (/* binding */ createPost)
 /* harmony export */ });
 /* harmony import */ var _likes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./likes */ "./resources/js/Posts/likes.js");
+/* harmony import */ var _Utils_notification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Utils/notification */ "./resources/js/Utils/notification.js");
+/* harmony import */ var _Utils_constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Utils/constants */ "./resources/js/Utils/constants.js");
+/* harmony import */ var _Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Utils/loading-state */ "./resources/js/Utils/loading-state.js");
+/* harmony import */ var _Posts_replacePostsContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Posts/replacePostsContainer */ "./resources/js/Posts/replacePostsContainer.js");
 
 
-var createPost = function createPost(postData) {
-  var formData = new FormData();
-  formData.append('_token', postData.csrfToken);
-  formData.append('body', postData.body);
-  formData.append('user_id', postData.userId);
-  var submitBtn = document.getElementById('create-post-form-submit');
-  var submitBtnIcon = document.getElementById('create-post-form-submit-icon');
-  submitBtnIcon.classList.add('d-none');
-  submitBtn.classList.add('disabled', 'opacity-75');
-  submitBtn.querySelector('#create-post-form-submit-spinner').classList.remove('d-none');
-  axios.post('/posts/create', formData).then(function (response) {
-    var postsContainer = document.getElementById('posts-container');
 
-    if (postsContainer) {
-      var postsElement = '';
-      postsElement += response.data.posts;
-      postsElement += postsContainer.innerHTML;
-      postsContainer.innerHTML = postsElement;
-    }
 
-    (0,_likes__WEBPACK_IMPORTED_MODULE_0__.configureLikes)();
-    document.getElementById('create-post-form').querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML = '';
-    var notificationToast = document.getElementById('notification-toast');
-    notificationToast.querySelector('.toast-body').innerText = 'Post created successfully.';
-    var toast = new bootstrap.Toast(notificationToast);
-    toast.show();
-  })["catch"](function (err) {
-    console.log(err);
-  })["finally"](function () {
-    submitBtnIcon.classList.remove('d-none');
-    submitBtn.classList.remove('disabled', 'opacity-75');
-    submitBtn.querySelector('#create-post-form-submit-spinner').classList.add('d-none');
+
+function createPost() {
+  if (!_Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm) return;
+  _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var form = event.target;
+    var body = form.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML;
+    var userId = localStorage.getItem('user_id');
+    var formData = new FormData();
+    formData.append('_token', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.csrfToken);
+    formData.append('body', body);
+    formData.append('user_id', userId);
+    (0,_Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__.initBtnLoadingState)('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
+    axios.post('/posts/create', formData).then(function (response) {
+      (0,_Posts_replacePostsContainer__WEBPACK_IMPORTED_MODULE_4__.replacePostsContainer)(response.data.posts);
+      (0,_likes__WEBPACK_IMPORTED_MODULE_0__.configureLikes)();
+      clearPostForm();
+      (0,_Utils_notification__WEBPACK_IMPORTED_MODULE_1__.notify)('Post created successfully.');
+    })["catch"](function (err) {
+      return console.log(err);
+    })["finally"](function () {
+      (0,_Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__.endBtnLoadingState)('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
+    });
   });
-};
+}
 
-
+function clearPostForm() {
+  if (!_Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm) return;
+  _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML = '';
+}
 
 /***/ }),
 
@@ -2539,47 +2539,43 @@ var createPost = function createPost(postData) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _create_post__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-post */ "./resources/js/Posts/create-post.js");
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initEditor": () => (/* binding */ initEditor)
+/* harmony export */ });
+/* harmony import */ var _Utils_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Utils/constants */ "./resources/js/Utils/constants.js");
 
-var createPostForm = document.getElementById('create-post-form');
-createPostForm && tinymce.init({
-  selector: '#post-editor',
-  plugins: ['link', 'anchor', 'wordcount', 'code', 'insertdatetime', 'table', 'image'],
-  toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-  file_picker_callback: function file_picker_callback(callback, value, meta) {
-    var input = document.createElement('input');
-    input.setAttribute('type', 'file');
-    input.setAttribute('accept', 'image/*');
-    input.addEventListener('change', function (event) {
-      var file = event.target.files[0];
-      var formData = new FormData();
-      formData.append('_token', document.querySelector('meta[name="_token"]').getAttribute('content'));
-      formData.append('image', file);
-      axios.post('/posts/image/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
-        callback(response.data.image, {
-          title: file.name
-        });
+
+var filePickerHandler = function filePickerHandler(callback, _value, _meta) {
+  var input = document.createElement('input');
+  input.setAttribute('type', 'file');
+  input.setAttribute('accept', 'image/*');
+  input.addEventListener('change', function (event) {
+    var file = event.target.files[0];
+    var formData = new FormData();
+    formData.append('_token', _Utils_constants__WEBPACK_IMPORTED_MODULE_0__.csrfToken);
+    formData.append('image', file);
+    axios.post('/posts/image/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then(function (response) {
+      return callback(response.data.image, {
+        title: file.name
       });
     });
-    input.click();
-  }
-});
-createPostForm && createPostForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  var form = event.target;
-  var csrfToken = document.querySelector('meta[name="_token"]').getAttribute('content');
-  var body = form.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML;
-  var userId = localStorage.getItem('user_id');
-  (0,_create_post__WEBPACK_IMPORTED_MODULE_0__.createPost)({
-    csrfToken: csrfToken,
-    body: body,
-    userId: userId
   });
-});
+  input.click();
+};
+
+function initEditor() {
+  if (!_Utils_constants__WEBPACK_IMPORTED_MODULE_0__.createPostForm) return;
+  tinymce.init({
+    selector: '#post-editor',
+    plugins: ['link', 'anchor', 'wordcount', 'code', 'insertdatetime', 'table', 'image'],
+    toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    file_picker_callback: filePickerHandler
+  });
+}
 
 /***/ }),
 
@@ -2595,27 +2591,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "configureLikes": () => (/* binding */ configureLikes)
 /* harmony export */ });
 var configureLikes = function configureLikes() {
+  var userId = localStorage.getItem('user_id');
+  if (!userId) return;
   document.querySelectorAll('.post-actions').forEach(function (postActionDiv) {
     var postId = postActionDiv.dataset.postId;
     var likeBtn = postActionDiv.querySelector('.like');
     var formData = new FormData();
     formData.append('_token', document.querySelector('meta[name="_token"]').getAttribute('content'));
     formData.append('post_id', postId);
-    formData.append('user_id', localStorage.getItem('user_id'));
+    formData.append('user_id', userId);
     axios.get('/posts/check-like', {
       params: {
         post_id: postId,
-        user_id: localStorage.getItem('user_id')
+        user_id: userId
       }
     }).then(function (response) {
       if (response.data.liked) likeBtn.classList.add('active');else likeBtn.classList.remove('active');
     });
     likeBtn.addEventListener('click', function (event) {
       event.target.classList.toggle('active');
-      console.log(formData);
-      axios.post('/posts/like-unlike', formData).then(function (response) {
-        console.log(response.data);
-      });
+      axios.post('/posts/like-unlike', formData).then(function (response) {});
     });
   });
 };
@@ -2640,6 +2635,54 @@ if (postsContainer) window.addEventListener('scroll', function () {
 
 /***/ }),
 
+/***/ "./resources/js/Posts/posts.js":
+/*!*************************************!*\
+  !*** ./resources/js/Posts/posts.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ posts)
+/* harmony export */ });
+/* harmony import */ var _editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor */ "./resources/js/Posts/editor.js");
+/* harmony import */ var _create_post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-post */ "./resources/js/Posts/create-post.js");
+
+
+function posts() {
+  (0,_editor__WEBPACK_IMPORTED_MODULE_0__.initEditor)();
+  (0,_create_post__WEBPACK_IMPORTED_MODULE_1__.createPost)();
+}
+
+/***/ }),
+
+/***/ "./resources/js/Posts/replacePostsContainer.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/Posts/replacePostsContainer.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "replacePostsContainer": () => (/* binding */ replacePostsContainer)
+/* harmony export */ });
+function replacePostsContainer(postsString) {
+  var postsContainer = document.getElementById('posts-container');
+
+  if (!postsContainer) {
+    return;
+  }
+
+  var postsElement = '';
+  postsElement += postsString;
+  postsElement += postsContainer.innerHTML;
+  postsContainer.innerHTML = postsElement;
+}
+
+/***/ }),
+
 /***/ "./resources/js/Profile/index-page-image-uploader.js":
 /*!***********************************************************!*\
   !*** ./resources/js/Profile/index-page-image-uploader.js ***!
@@ -2653,6 +2696,72 @@ if (localStorage.getItem('closedImageContainer') === 'true' && imageUploadContai
   imageUploadContainer.remove();
   localStorage.setItem('closedImageContainer', 'true');
 });
+
+/***/ }),
+
+/***/ "./resources/js/Utils/constants.js":
+/*!*****************************************!*\
+  !*** ./resources/js/Utils/constants.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createPostForm": () => (/* binding */ createPostForm),
+/* harmony export */   "csrfToken": () => (/* binding */ csrfToken)
+/* harmony export */ });
+var createPostForm = document.getElementById('create-post-form');
+var csrfToken = document.querySelector('meta[name="_token"]').getAttribute('content');
+
+/***/ }),
+
+/***/ "./resources/js/Utils/loading-state.js":
+/*!*********************************************!*\
+  !*** ./resources/js/Utils/loading-state.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "endBtnLoadingState": () => (/* binding */ endBtnLoadingState),
+/* harmony export */   "initBtnLoadingState": () => (/* binding */ initBtnLoadingState)
+/* harmony export */ });
+function initBtnLoadingState(btnId, iconId, spinnerId) {
+  var submitBtn = document.getElementById(btnId);
+  var submitBtnIcon = document.getElementById(iconId);
+  submitBtnIcon.classList.add('d-none');
+  submitBtn.classList.add('disabled', 'opacity-75');
+  document.getElementById(spinnerId).classList.remove('d-none');
+}
+function endBtnLoadingState(btnId, iconId, spinnerId) {
+  var submitBtn = document.getElementById(btnId);
+  var submitBtnIcon = document.getElementById(iconId);
+  submitBtnIcon.classList.remove('d-none');
+  submitBtn.classList.remove('disabled', 'opacity-75');
+  document.getElementById(spinnerId).classList.add('d-none');
+}
+
+/***/ }),
+
+/***/ "./resources/js/Utils/notification.js":
+/*!********************************************!*\
+  !*** ./resources/js/Utils/notification.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "notify": () => (/* binding */ notify)
+/* harmony export */ });
+function notify(text) {
+  var notificationToast = document.getElementById('notification-toast');
+  notificationToast.querySelector('.toast-body').innerText = text;
+  var toast = new bootstrap.Toast(notificationToast);
+  toast.show();
+}
 
 /***/ }),
 
@@ -22276,16 +22385,15 @@ var __webpack_exports__ = {};
   !*** ./resources/js/app.js ***!
   \*****************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Posts_likes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Posts/likes */ "./resources/js/Posts/likes.js");
-/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* harmony import */ var _Errors_errors_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Errors/errors-container */ "./resources/js/Errors/errors-container.js");
-/* harmony import */ var _Errors_errors_container__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_Errors_errors_container__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Profile/index-page-image-uploader */ "./resources/js/Profile/index-page-image-uploader.js");
-/* harmony import */ var _Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Posts_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Posts/editor */ "./resources/js/Posts/editor.js");
-/* harmony import */ var _Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Posts/load-posts-on-scroll */ "./resources/js/Posts/load-posts-on-scroll.js");
-/* harmony import */ var _Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_5__);
-
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var _Errors_errors_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Errors/errors-container */ "./resources/js/Errors/errors-container.js");
+/* harmony import */ var _Errors_errors_container__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_Errors_errors_container__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile/index-page-image-uploader */ "./resources/js/Profile/index-page-image-uploader.js");
+/* harmony import */ var _Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_Profile_index_page_image_uploader__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Posts_posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Posts/posts */ "./resources/js/Posts/posts.js");
+/* harmony import */ var _Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Posts/load-posts-on-scroll */ "./resources/js/Posts/load-posts-on-scroll.js");
+/* harmony import */ var _Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_Posts_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _Posts_likes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Posts/likes */ "./resources/js/Posts/likes.js");
  // Errors
 
  // User Profile
@@ -22295,7 +22403,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_Posts_likes__WEBPACK_IMPORTED_MODULE_0__.configureLikes)();
+
+(0,_Posts_posts__WEBPACK_IMPORTED_MODULE_3__["default"])();
+(0,_Posts_likes__WEBPACK_IMPORTED_MODULE_5__.configureLikes)();
 })();
 
 /******/ })()

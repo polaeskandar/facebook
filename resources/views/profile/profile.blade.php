@@ -1,20 +1,10 @@
 @extends('template.template')
 @section('content')
-  <style>
-    .user-first-letter {
-      background-color: rgba(110, 48, 76, 1);
-      color: #fff;
-      font-size: 5rem;
-    }
-  </style>
   <main class="row w-100">
     <div class="col-3 details overflow-hidden">
-      <h5 class="card-title mb-3">{{ auth()->user()->name }}</h5>
-      @if (auth()->user()->image)
-        <img src="{{ auth()->user()->image }}" alt="user-{{ auth()->id() }}-image" style="border: 1px solid #ccc;" />
-      @else
-        <div class="user-first-letter d-flex align-items-center justify-content-center py-4" style="">{{ strtoupper(auth()->user()->name[0]) }}</div>
-      @endif
+      <h5 class="card-title mb-3">{{ $user->name }}</h5>
+     <x-profile.profile-image :user="$user"></x-profile.profile-image>
+
     </div>
     <div class="col-9 timeline">
       <h5 class="card-title mb-3">My Images</h5>
@@ -27,7 +17,7 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="{{ auth()->user()->image }}" class="d-block w-100" alt="...">
+            <img src="{{ $user->image }}" class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
             <img src="..." class="d-block w-100" alt="...">
@@ -53,7 +43,7 @@
       <div class="d-grid gap-4" style="grid-template-columns: repeat(3, 1fr)">
 
         <div class="card">
-          <img src="{{ auth()->user()->image }}" class="card-img-top" alt="...">
+          <img src="{{ $user->image }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -62,7 +52,7 @@
         </div>
 
         <div class="card">
-          <img src="{{ auth()->user()->image }}" class="card-img-top" alt="...">
+          <img src="{{ $user->image }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -71,7 +61,7 @@
         </div>
 
         <div class="card">
-          <img src="{{ auth()->user()->image }}" class="card-img-top" alt="...">
+          <img src="{{ $user->image }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -88,7 +78,7 @@
         </div>
 
         <div class="card">
-          <img src="{{ auth()->user()->image }}" class="card-img-top" alt="...">
+          <img src="{{ $user->image }}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Card title</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>

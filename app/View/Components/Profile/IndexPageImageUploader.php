@@ -9,7 +9,7 @@ class IndexPageImageUploader extends Component {
   public string $imageUploadRoute;
 
   public function __construct() {
-    $this->showContainer = auth()->check() && !auth()->user()->image;
+    $this->showContainer = auth()->check() && !auth()->user()->profileImages->count();
     $this->imageUploadRoute = route('profile.image.upload');
   }
 

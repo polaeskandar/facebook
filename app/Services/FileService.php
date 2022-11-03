@@ -19,15 +19,15 @@ class FileService {
    * Upload an image to a specific folder in the file storage.
    *
    * @param UploadedFile $file
-   * @param string $filepath
+   * @param string $storagePath
    * @return string
    * @author Pola Eskandar
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function uploadImage(UploadedFile $file, string $filepath) : string {
+  public function uploadImage(UploadedFile $file, string $storagePath) : string {
     $filename = $this->generateFileName($file);
-    $path = Storage::putFileAs($filepath, $file, $filename);
+    $path = Storage::putFileAs($storagePath, $file, $filename);
     return $this->getPath($path);
   }
 
@@ -37,11 +37,11 @@ class FileService {
    * @param UploadedFile $file
    * @return string
    * @author Pola Eskandar
-   * @version 1.0.0
+   * @version 1.1.0
    * @since 1.0.0
    */
   public function generateFileName(UploadedFile $file) : string {
-    return time() . "_" . Str::random(10) . "_" . "{$file->getClientOriginalExtension()}.{$file->guessClientExtension()}";
+    return time() . "_" . Str::random() . ".{$file->guessClientExtension()}";
   }
 
   /**

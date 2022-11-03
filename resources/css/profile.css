@@ -1,0 +1,9 @@
+.user-first-letter {
+  background-color: rgba(110, 48, 76, 1);
+  color: #fff;
+  font-size: 5rem;
+}
+
+.user-current-profile {
+  border: 1px solid #ccc;
+}

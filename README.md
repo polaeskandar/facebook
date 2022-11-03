@@ -1,7 +1,6 @@
 # Curriculum
 
 ## Today's and tomorrow's session
-- Separate profile pictures table and proper use of migrations.
 - Finish profile page.
 - Refactor JS files.
 - Load posts on scroll.
@@ -20,7 +19,8 @@
 1) Add show/hide to comments section of each post (JavaScript Exercise)
 2) Add creating a comment functionality (JavaScript Exercise)
 3) Add delete, edit posts and comments (JavaScript Exercise)
-4) Add a dark mode
+4) Read more in post (JavaScript Exercise) 
+5) Add a dark mode
 
 ---
 
