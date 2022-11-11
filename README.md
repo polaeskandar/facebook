@@ -2,7 +2,6 @@
 
 ## Today's and tomorrow's session
 - Finish profile page.
-- Refactor JS files.
 - Load posts on scroll.
 - Implement email verification.
 

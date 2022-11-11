@@ -9,12 +9,12 @@ use Illuminate\View\Component;
 class ProfileImage extends Component {
   public User $user;
   public bool $showImage;
-  public ProfileImageModel|null $currentProfileImage;
+  public ProfileImageModel|string $currentProfileImage;
 
   public function __construct(User $user) {
     $this->user = $user;
-    $this->showImage =  $user?->profileImages->count();
-    $this->currentProfileImage = $user?->profileImages->last();
+    $this->showImage = $user->profileImages->count();
+    $this->currentProfileImage = $this->showImage ? $user->profileImages->last() : strtoupper($user->name[0]);
   }
 
   public function render() { return view('profile.profile-image'); }

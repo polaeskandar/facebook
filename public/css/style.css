@@ -115,3 +115,18 @@ img {
 .user-current-profile {
   border: 1px solid #ccc;
 }
+
+.carousel-indicators {
+  background: rgb(0 0 0 / 50%);
+  margin-bottom: 0;
+}
+
+.carousel-item img {
+  max-width: 30rem !important;
+  margin: auto;
+}
+
+.carousel-control-next,
+.carousel-control-prev {
+  background: black;
+}

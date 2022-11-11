@@ -18,7 +18,7 @@ class Navbar extends Component {
     $this->loginLink = route('login.form');
     $this->registerLink = route('register.form');
     $this->logoutLink = route('logout');
-    $this->profileLink = route('profile.index', ['id' => auth()->id()]);
+    $this->profileLink = route('profile.index', ['id' => auth()->check() ? auth()->id() : 1]);
     $this->currentRouteName = request()->route()->getName();
     $this->userName = auth()->user()?->name;
   }

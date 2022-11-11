@@ -1,17 +1,16 @@
-import { configureLikes } from "./likes";
+import { likes } from "./likes";
 import { notify } from "../Utils/notification";
-import { createPostForm, csrfToken } from "../Utils/constants";
+import { createPostForm, createPostRoute, csrfToken, userId } from "../Utils/constants";
 import { endBtnLoadingState, initBtnLoadingState } from "../Utils/loading-state";
-import { replacePostsContainer } from "../Posts/replacePostsContainer";
+import { replacePostsContainer } from "./replace-posts-container";
+import { clearIframeContents, getIframeContents } from "../Utils/utils";
 
 export function createPost() {
   if (!createPostForm) return;
 
   createPostForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    const form = event.target;
-    const body = form.querySelector('.tox-tinymce iframe').contentDocument.querySelector('body').innerHTML;
-    const userId = localStorage.getItem('user_id');
+    const body = getIframeContents('.tox-tinymce iframe');
 
     const formData = new FormData();
     formData.append('_token', csrfToken);
@@ -19,11 +18,10 @@ export function createPost() {
     formData.append('user_id', userId);
 
     initBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
-
-    axios.post('/posts/create', formData)
+    axios.post(createPostRoute, formData)
       .then((response) => {
         replacePostsContainer(response.data.posts);
-        configureLikes();
+        likes();
         clearPostForm();
         notify('Post created successfully.');
       })
@@ -36,10 +34,5 @@ export function createPost() {
 
 function clearPostForm() {
   if (!createPostForm) return;
-
-  createPostForm
-    .querySelector('.tox-tinymce iframe')
-    .contentDocument
-    .querySelector('body')
-    .innerHTML = '';
+  clearIframeContents('.tox-tinymce iframe');
 }

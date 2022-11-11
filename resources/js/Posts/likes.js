@@ -1,5 +1,6 @@
-const configureLikes = () => {
-  const userId = localStorage.getItem('user_id')
+import { checkLikeRoute, csrfToken, likeUnlikeRoute, userId } from "../Utils/constants";
+
+const likes = () => {
   if (!userId) return;
 
   document.querySelectorAll('.post-actions').forEach(postActionDiv => {
@@ -7,11 +8,11 @@ const configureLikes = () => {
     const likeBtn = postActionDiv.querySelector('.like');
 
     const formData = new FormData();
-    formData.append('_token', document.querySelector('meta[name="_token"]').getAttribute('content'));
+    formData.append('_token', csrfToken);
     formData.append('post_id', postId);
     formData.append('user_id', userId);
 
-    axios.get('/posts/check-like', {
+    axios.get(checkLikeRoute, {
       params: {
         post_id: postId,
         user_id: userId
@@ -23,10 +24,9 @@ const configureLikes = () => {
 
     likeBtn.addEventListener('click', (event) => {
       event.target.classList.toggle('active');
-      axios.post('/posts/like-unlike', formData).then(response => {});
+      axios.post(likeUnlikeRoute, formData);
     });
-
   });
 }
 
-export { configureLikes };
+export { likes };

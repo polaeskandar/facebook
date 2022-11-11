@@ -1,9 +1,13 @@
-const postsContainer = document.getElementById('posts-container');
+import { postsContainer } from "../Utils/constants";
 
-let postsRequestSent = false;
+const loadPostsOnScroll = () => {
+  let postsRequestSent = false;
 
-if (postsContainer) window.addEventListener('scroll', function () {
-  if ((window.innerHeight + window.scrollY) + 2000 >= document.body.offsetHeight && !postsRequestSent) {
-    postsRequestSent = true;
-  }
-});
+  if (postsContainer) window.addEventListener('scroll', function () {
+    if ((window.innerHeight + window.scrollY) + 2000 >= document.body.offsetHeight && !postsRequestSent) {
+      postsRequestSent = true;
+    }
+  });
+}
+
+export { loadPostsOnScroll }

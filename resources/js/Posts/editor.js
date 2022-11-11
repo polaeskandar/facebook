@@ -1,4 +1,4 @@
-import { createPostForm, csrfToken } from "../Utils/constants";
+import { createPostForm, csrfToken, postImagesUploadRoute } from "../Utils/constants";
 
 const filePickerHandler = (callback, _value, _meta) => {
   const input = document.createElement('input');
@@ -12,7 +12,7 @@ const filePickerHandler = (callback, _value, _meta) => {
     formData.append('_token', csrfToken);
     formData.append('image', file);
 
-    axios.post('/posts/image/upload', formData, {
+    axios.post(postImagesUploadRoute, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     }).then(response => callback(response.data.image, { title: file.name }));
   });

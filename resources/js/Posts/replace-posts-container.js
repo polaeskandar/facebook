@@ -1,4 +1,4 @@
-export function replacePostsContainer(postsString) {
+const replacePostsContainer = (postsString) => {
   const postsContainer = document.getElementById('posts-container');
   if (!postsContainer) { return }
 
@@ -7,3 +7,5 @@ export function replacePostsContainer(postsString) {
   postsElement += postsContainer.innerHTML;
   postsContainer.innerHTML = postsElement;
 }
+
+export { replacePostsContainer }

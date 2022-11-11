@@ -1,17 +1,9 @@
 import './bootstrap';
 
-
-// Errors
-import './Errors/errors-container';
-
-// User Profile
-import './Profile/index-page-image-uploader';
-
-// Posts
-import './Posts/posts';
-import './Posts/load-posts-on-scroll';
+import { errorsContainer } from "./Errors/errors-container";
+import { indexPageProfileImageUploader } from "./Profile/index-page-profile-image-uploader";
 import posts from "./Posts/posts";
-import { configureLikes } from "./Posts/likes";
 
+errorsContainer()
+indexPageProfileImageUploader()
 posts();
-configureLikes();
