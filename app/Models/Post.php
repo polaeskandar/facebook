@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model {
   use HasFactory, SoftDeletes;
 
-  protected $fillable = ['body', 'user_id'];
+  protected $fillable = ['body', 'user_id', 'posted_on'];
+  protected $casts = ['posted_on' => 'datetime'];
 
   public function user(): BelongsTo { return $this->belongsTo(User::class); }
   public function comments(): HasMany { return $this->hasMany(Comment::class); }

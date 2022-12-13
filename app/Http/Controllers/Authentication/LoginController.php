@@ -20,8 +20,9 @@ use Illuminate\View\View;
  * @since 1.0.0
  */
 class LoginController extends Controller {
-
-  public function __construct() { $this->middleware('guest'); }
+  public function __construct() {
+    $this->middleware('guest');
+  }
 
   /**
    * Login user.
@@ -32,7 +33,7 @@ class LoginController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function login(Request $request): RedirectResponse {
+  public function login(Request $request) : RedirectResponse {
     $validated = $request->validate([
       'email' => ['required', 'email', 'exists:users,email'],
       'password' => ['required'],
@@ -57,5 +58,7 @@ class LoginController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function loginView(): Factory|View|Application { return view('auth.login'); }
+  public function loginView() : Factory|View|Application {
+    return view('auth.login');
+  }
 }

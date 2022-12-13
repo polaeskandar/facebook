@@ -1,0 +1,7 @@
+.email-verification-notice.card {
+  width: 100%;
+}
+
+.email-verification-notice.card form#send-verification-email-form {
+  display: none;
+}

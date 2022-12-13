@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Authentication;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Foundation\Application;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
 
@@ -21,8 +22,9 @@ use Illuminate\View\View;
  * @since 1.0.0
  */
 class RegisterController extends Controller {
-
-  public function __construct() { $this->middleware('guest'); }
+  public function __construct() {
+    $this->middleware('guest');
+  }
 
   /**
    * Register a new user.
@@ -33,7 +35,7 @@ class RegisterController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function register(Request $request): RedirectResponse {
+  public function register(Request $request) : RedirectResponse {
     $validated = $request->validate([
       'name' => ['required', 'min:3', 'max:20'],
       'email' => ['required', 'email', 'unique:users,email'],
@@ -49,6 +51,7 @@ class RegisterController extends Controller {
 
     $role = Role::whereRole('user')->first();
     $user->roles()->attach($role);
+    event(new Registered($user));
 
     Auth::login($user, $validated['remember']);
     return redirect()->route('index');
@@ -62,5 +65,7 @@ class RegisterController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function registerView(): Factory|View|Application { return view('auth.register'); }
+  public function registerView() : Factory|View|Application {
+    return view('auth.register');
+  }
 }

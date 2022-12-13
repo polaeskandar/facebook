@@ -2464,6 +2464,29 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/EmailVerification/email-verification-notice.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/EmailVerification/email-verification-notice.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "emailVerificationNotice": () => (/* binding */ emailVerificationNotice)
+/* harmony export */ });
+function emailVerificationNotice() {
+  var sendVerificationEmailBtn = document.getElementById('send-verification-email-btn');
+  var sendVerificationEmailForm = document.getElementById('send-verification-email-form');
+  if (!sendVerificationEmailBtn || !sendVerificationEmailForm) return;
+  sendVerificationEmailBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    sendVerificationEmailForm.submit();
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/Errors/errors-container.js":
 /*!*************************************************!*\
   !*** ./resources/js/Errors/errors-container.js ***!
@@ -22459,14 +22482,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _Errors_errors_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Errors/errors-container */ "./resources/js/Errors/errors-container.js");
 /* harmony import */ var _Profile_index_page_profile_image_uploader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Profile/index-page-profile-image-uploader */ "./resources/js/Profile/index-page-profile-image-uploader.js");
-/* harmony import */ var _Posts_posts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Posts/posts */ "./resources/js/Posts/posts.js");
+/* harmony import */ var _EmailVerification_email_verification_notice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EmailVerification/email-verification-notice */ "./resources/js/EmailVerification/email-verification-notice.js");
+/* harmony import */ var _Posts_posts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Posts/posts */ "./resources/js/Posts/posts.js");
+
 
 
 
 
 (0,_Errors_errors_container__WEBPACK_IMPORTED_MODULE_1__.errorsContainer)();
 (0,_Profile_index_page_profile_image_uploader__WEBPACK_IMPORTED_MODULE_2__.indexPageProfileImageUploader)();
-(0,_Posts_posts__WEBPACK_IMPORTED_MODULE_3__["default"])();
+(0,_EmailVerification_email_verification_notice__WEBPACK_IMPORTED_MODULE_3__.emailVerificationNotice)();
+(0,_Posts_posts__WEBPACK_IMPORTED_MODULE_4__["default"])();
 })();
 
 /******/ })()

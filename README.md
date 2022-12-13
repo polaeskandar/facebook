@@ -1,43 +1,35 @@
 # Curriculum
 
-## Today's and tomorrow's session
-- Finish profile page.
-- Load posts on scroll.
-- Implement email verification.
-
 ### Module 2: Account Verification, Authorization and Improving Posts.
 
 1) Schedule posts to be added in a later time
-2) Implement email verification
-3) Implement authorization
 
 ---
 
-### Module 3: Revisiting Comments and Posts (Includes Updates + Improvements).
+### Module 3: Revisiting Comments and Posts.
 
 1) Add show/hide to comments section of each post (JavaScript Exercise)
 2) Add creating a comment functionality (JavaScript Exercise)
 3) Add delete, edit posts and comments (JavaScript Exercise)
 4) Read more in post (JavaScript Exercise) 
 5) Add a dark mode
+6) Improve layout and frontend (Media query)
 
 ---
 
-### Module 4: Sharing functionality and Improving Posts (Includes Updates + Improvements).
+### Module 4: Sharing functionality and Improving Posts.
 
 1) Show posts when scrolling (JavaScript Exercise)
 2) Add link to post in a page + share functionality
 
 ---
 
-### Module 5: Profile Pages and Admin Dashboards (Includes Updates + Improvements).
+### Module 5: Admin Dashboards.
 
-1) Add profile pages
-2) Add dashboard page for admins
-3) Implement Chart.js Library
-4) Add reports using CSVs and Excel files
-5) Polymorphic relationships for images
-6) Add cover background
+1) Add dashboard page for admins
+2) Implement Chart.js Library
+3) Add reports using CSVs and Excel files
+4) Add cover background for profile page
 
 ---
 
@@ -71,27 +63,24 @@
 
 ---
 
-### Module 10: Accepting Payments, Advanced Authentication and Using Broadcasting (Heavy JavaScript).
-
-1) Implement payments
-2) Make live chat app and use broadcasting
-3) Implementing Socialite
-
----
-
-### Module 11: Building a REST API.
+### Module 10: Building a REST API.
 
 1) Use rate limiting and implement API
 
 ---
 
-### Module 12: Supervised Project.
+### Module 11: Accepting Payments, Testing, Advanced Authentication and Using Broadcasting (Heavy JavaScript).
 
-Recommended: Ecommerce store / News portal / Bookstore / Personal blog
+1) Implement payments
+2) Make live chat app and use broadcasting
+3) Implementing Socialite
+4) Testing the application
 
 ---
 
-## Assignments
+### Module 12: Supervised Project.
 
-> [Assignment](https://www.youtube.com/watch?v=T5QyLcmcMJ4&list=PLDoPjvoNmBAycCXz5d9WvqlmykUIys5e8&index=4), ***Deadline on 01-11-2022*** 
+Recommended: eCommerce store / News portal / Bookstore / Personal blog
+
+---
 

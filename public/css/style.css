@@ -130,3 +130,19 @@ img {
 .carousel-control-prev {
   background: black;
 }
+
+.profile-page-posts {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.profile-page-no-posts {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.email-verification-notice.card {
+  width: 100%;
+}
+
+.email-verification-notice.card form#send-verification-email-form {
+  display: none;
+}

@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Auth;
  * @since 1.0.0
  */
 class LogoutController extends Controller {
-
-  public function __construct() { $this->middleware('auth'); }
+  public function __construct() {
+    $this->middleware('auth');
+  }
 
   /**
    * Logout user.
@@ -27,7 +28,7 @@ class LogoutController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function logout(Request $request): RedirectResponse {
+  public function logout(Request $request) : RedirectResponse {
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();

@@ -3,17 +3,18 @@
 namespace App\View\Components\Posts;
 
 use App\Models\Post as PostModel;
+use App\Models\User;
 use Illuminate\View\Component;
 
 class PostContent extends Component {
-  public string $author;
+  public User $author;
   public string $postedOn;
   public int $bodyLength;
   public string $fullBody;
   public string $subBody;
 
   public function __construct(PostModel $post) {
-    $this->author = $post->user->name;
+    $this->author = $post->user;
     $this->postedOn = "Posted {$post->created_at->diffForHumans()}";
     $this->bodyLength = strlen($post->body);
     $this->fullBody = nl2br($post->body);

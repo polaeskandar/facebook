@@ -22,3 +22,11 @@
 .carousel-control-prev {
   background: black;
 }
+
+.profile-page-posts {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.profile-page-no-posts {
+  grid-template-columns: repeat(1, 1fr);
+}

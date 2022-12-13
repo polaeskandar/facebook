@@ -13,7 +13,7 @@ class UserSeeder extends Seeder {
     $ownerRole = Role::whereRole('Owner')->first();
     $adminRole = Role::whereRole('Admin')->first();
     $moderatorRole = Role::whereRole('Moderator')->first();
-    $userRole =Role::whereRole('User')->first();
+    $userRole = Role::whereRole('User')->first();
 
     // Creating owner
     $owner = User::factory()->owner()->create();

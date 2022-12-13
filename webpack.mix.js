@@ -9,6 +9,7 @@ laravelMix.minify([
   "./resources/css/navbar.css",
   "./resources/css/posts.css",
   "./resources/css/profile.css",
+  "./resources/css/verification.css",
 ], "./public/css/style.css");
 
 laravelMix.js("./resources/js/app.js", "./public/js/main.js");

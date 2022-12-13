@@ -22,8 +22,9 @@ use Illuminate\View\View;
  * @since 1.0.0
  */
 class ResetPasswordController extends Controller {
-
-  public function __construct() { $this->middleware('guest'); }
+  public function __construct() {
+    $this->middleware('guest');
+  }
 
   /**
    * Show send reset link view.
@@ -33,7 +34,9 @@ class ResetPasswordController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function sendResetLinkView(): Factory|View|Application { return view('auth.forget-password'); }
+  public function sendResetLinkView() : Factory|View|Application {
+    return view('auth.forget-password');
+  }
 
   /**
    * Send the reset link on email.
@@ -44,7 +47,7 @@ class ResetPasswordController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function sendResetLink(Request $request): RedirectResponse {
+  public function sendResetLink(Request $request) : RedirectResponse {
     $validated = $request->validate(['email' => ['required', 'email']]);
     $status = Password::sendResetLink($validated['email']);
 
@@ -62,7 +65,9 @@ class ResetPasswordController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function showResetPasswordForm(string $token): Factory|View|Application { return view('auth.reset-password', ['token' => $token]); }
+  public function showResetPasswordForm(string $token) : Factory|View|Application {
+    return view('auth.reset-password', ['token' => $token]);
+  }
 
   /**
    * Reset the password.
@@ -73,7 +78,7 @@ class ResetPasswordController extends Controller {
    * @version 1.0.0
    * @since 1.0.0
    */
-  public function resetPassword(Request $request): RedirectResponse {
+  public function resetPassword(Request $request) : RedirectResponse {
     $request->validate([
       'token' => ['required'],
       'email' => ['required', 'email'],

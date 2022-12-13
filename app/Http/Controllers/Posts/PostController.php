@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
 use App\Services\FileService;
+use Carbon\Carbon;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 /**
@@ -16,7 +18,6 @@ use Illuminate\Http\Request;
  * @since 1.0.0
  */
 class PostController extends Controller {
-
   public FileService $fileService;
 
   public function __construct() {
@@ -28,17 +29,26 @@ class PostController extends Controller {
    *
    * @param Request $request
    * @return array
-   * @author Pola Eskandar
+   * @throws AuthorizationException
    * @version 1.0.0
    * @since 1.0.0
+   * @author Pola Eskandar
    */
   public function createPost(Request $request) : array {
+    $this->authorize('create', Post::class);
+
     $validated = $request->validate([
       'body' => ['required'],
       'user_id' => ['required'],
+      'post_on' => ['nullable', 'date']
     ]);
 
-    $post = Post::create($validated);
+    $post = Post::create([
+      'body' => $validated['body'],
+      'user_id' => $validated['user_id'],
+      'posted_on' => $validated['post_on'] ?? Carbon::now()
+    ]);
+
     $postDocument = view('posts.post', ['post' => $post, 'postId' => $post->id])->render();
     return ['posts' => $postDocument];
   }
