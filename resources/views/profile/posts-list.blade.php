@@ -1,4 +1,4 @@
-<h5 class="card-title mb-3">My Posts</h5>
+<h5 class="card-title mb-3">Posts</h5>
 
 <div class="d-grid gap-4 {{ $posts->count() ? 'profile-page-posts' : 'profile-page-no-posts' }}">
   @forelse($posts as $post)

@@ -16,8 +16,10 @@ export function createPost() {
     formData.append('_token', csrfToken);
     formData.append('body', body);
     formData.append('user_id', userId);
+    // TODO: add scheduled date to formData
 
     initBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
+
     axios.post(createPostRoute, formData)
       .then((response) => {
         replacePostsContainer(response.data.posts);
@@ -25,7 +27,7 @@ export function createPost() {
         clearPostForm();
         notify('Post created successfully.');
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.error(err))
       .finally(() => {
         endBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
       });

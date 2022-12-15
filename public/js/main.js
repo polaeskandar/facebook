@@ -2540,7 +2540,8 @@ function createPost() {
     var formData = new FormData();
     formData.append('_token', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.csrfToken);
     formData.append('body', body);
-    formData.append('user_id', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.userId);
+    formData.append('user_id', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.userId); // TODO: add scheduled date to formData
+
     (0,_Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__.initBtnLoadingState)('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
     axios.post(_Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostRoute, formData).then(function (response) {
       (0,_replace_posts_container__WEBPACK_IMPORTED_MODULE_4__.replacePostsContainer)(response.data.posts);
@@ -2548,7 +2549,7 @@ function createPost() {
       clearPostForm();
       (0,_Utils_notification__WEBPACK_IMPORTED_MODULE_1__.notify)('Post created successfully.');
     })["catch"](function (err) {
-      return console.log(err);
+      return console.error(err);
     })["finally"](function () {
       (0,_Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__.endBtnLoadingState)('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
     });
@@ -2691,18 +2692,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ posts)
 /* harmony export */ });
 /* harmony import */ var _editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor */ "./resources/js/Posts/editor.js");
-/* harmony import */ var _create_post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-post */ "./resources/js/Posts/create-post.js");
-/* harmony import */ var _likes_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./likes.js */ "./resources/js/Posts/likes.js");
-/* harmony import */ var _load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./load-posts-on-scroll */ "./resources/js/Posts/load-posts-on-scroll.js");
+/* harmony import */ var _schedule_post__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./schedule-post */ "./resources/js/Posts/schedule-post.js");
+/* harmony import */ var _create_post__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./create-post */ "./resources/js/Posts/create-post.js");
+/* harmony import */ var _likes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./likes.js */ "./resources/js/Posts/likes.js");
+/* harmony import */ var _load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./load-posts-on-scroll */ "./resources/js/Posts/load-posts-on-scroll.js");
+
 
 
 
 
 function posts() {
   (0,_editor__WEBPACK_IMPORTED_MODULE_0__.initEditor)();
-  (0,_create_post__WEBPACK_IMPORTED_MODULE_1__.createPost)();
-  (0,_likes_js__WEBPACK_IMPORTED_MODULE_2__.likes)();
-  (0,_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_3__.loadPostsOnScroll)();
+  (0,_schedule_post__WEBPACK_IMPORTED_MODULE_1__.schedulePost)();
+  (0,_create_post__WEBPACK_IMPORTED_MODULE_2__.createPost)();
+  (0,_likes_js__WEBPACK_IMPORTED_MODULE_3__.likes)();
+  (0,_load_posts_on_scroll__WEBPACK_IMPORTED_MODULE_4__.loadPostsOnScroll)();
 }
 
 /***/ }),
@@ -2732,6 +2736,38 @@ var replacePostsContainer = function replacePostsContainer(postsString) {
 };
 
 
+
+/***/ }),
+
+/***/ "./resources/js/Posts/schedule-post.js":
+/*!*********************************************!*\
+  !*** ./resources/js/Posts/schedule-post.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "schedulePost": () => (/* binding */ schedulePost)
+/* harmony export */ });
+function schedulePost() {
+  var schedulePostBtn = document.getElementById('schedule-post-btn');
+  var schedulePostCloseBtn = document.getElementById('schedule-post-close-btn');
+  var schedulePostInputContainer = document.getElementById('schedule-post-input-container');
+  var schedulePostInput = document.getElementById('schedule-post-input');
+  if (!schedulePostBtn || !schedulePostInputContainer || !schedulePostInput) return;
+  schedulePostBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    schedulePostInputContainer.classList.remove('d-none');
+    schedulePostInputContainer.classList.add('d-flex');
+  });
+  schedulePostCloseBtn.addEventListener('click', function (event) {
+    event.preventDefault();
+    schedulePostInputContainer.classList.add('d-none');
+    schedulePostInputContainer.classList.remove('d-flex');
+    schedulePostInput.value = '';
+  });
+}
 
 /***/ }),
 

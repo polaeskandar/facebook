@@ -1,6 +1,7 @@
 .auth-form {
   width: 500px;
   margin: 60px auto;
+  border: 1px solid #ccc;
 }
 
 @media screen and (max-width: 768px) {
@@ -24,14 +25,6 @@
 .errors-container.active {
   position: fixed;
   opacity: 1;
-}
-
-*:not(.toast) {
-  transition: none !important;
-}
-
-*:not(.spinner-border) {
-  border-radius: 0 !important;
 }
 
 table tr th, table tr td {
@@ -62,6 +55,19 @@ hr {
 
 img {
   max-width: 100% !important;
+}
+
+input[type="datetime-local"] {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+input[type="datetime-local"]::-webkit-datetime-edit {
+  padding: .5rem;
+}
+
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  margin-right: .5rem;
 }
 
 .shortcuts,
