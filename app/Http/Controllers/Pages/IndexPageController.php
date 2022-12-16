@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Carbon\Carbon;
 use Illuminate\Foundation\Application;
 use Illuminate\View\Factory;
 use Illuminate\View\View;
@@ -27,7 +28,9 @@ class IndexPageController extends Controller {
    */
   public function index(): Factory|View|Application {
     $posts = Post::with(['comments', 'comments.user', 'user'])
-      ->orderBy('created_at', 'desc')
+      ->where('posted_on', '<=', Carbon::now())
+      ->orWhere('posted_on', NULL)
+      ->orderBy('posted_on', 'desc')
       ->take(10)
       ->get();
 

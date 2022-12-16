@@ -14,7 +14,7 @@
           </button>
         </div>
         <div id="schedule-post-input-container" class="d-none align-items-center gap-2 mt-3">
-          <input class="w-100" id="schedule-post-input" type="datetime-local">
+          <input class="w-100" id="schedule-post-input" type="datetime-local" name="post_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d H:i') }}" max="{{ \Carbon\Carbon::now()->addYear()->format('Y-m-d H:i') }}">
           <button type="button" class="btn-close" id="schedule-post-close-btn"></button>
         </div>
       </form>

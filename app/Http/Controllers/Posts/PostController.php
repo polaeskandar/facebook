@@ -8,7 +8,10 @@ use App\Models\Post;
 use App\Services\FileService;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Routing\ResponseFactory;
 
 /**
  * Class for handling posts requests.
@@ -28,13 +31,13 @@ class PostController extends Controller {
    * Create a new post.
    *
    * @param Request $request
-   * @return array
+   * @return Response|Application|ResponseFactory
    * @throws AuthorizationException
    * @version 1.0.0
    * @since 1.0.0
    * @author Pola Eskandar
    */
-  public function createPost(Request $request) : array {
+  public function createPost(Request $request) : Response|Application|ResponseFactory {
     $this->authorize('create', Post::class);
 
     $validated = $request->validate([
@@ -43,14 +46,22 @@ class PostController extends Controller {
       'post_on' => ['nullable', 'date']
     ]);
 
+    if (
+      $validated['post_on']
+      && (Carbon::parse($validated['post_on'])->subHour() < now()
+      || Carbon::parse($validated['post_on']) > now()->addYear())
+    ) {
+      return response(['err' => 'Cannot schedule post on the requested time. Please try again...'], 400);
+    }
+
     $post = Post::create([
       'body' => $validated['body'],
       'user_id' => $validated['user_id'],
-      'posted_on' => $validated['post_on'] ?? Carbon::now()
+      'posted_on' => Carbon::parse($validated['post_on']) ?? Carbon::now()
     ]);
 
     $postDocument = view('posts.post', ['post' => $post, 'postId' => $post->id])->render();
-    return ['posts' => $postDocument];
+    return response(['posts' => $postDocument], 201);
   }
 
   /**

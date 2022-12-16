@@ -11,21 +11,22 @@ export function createPost() {
   createPostForm.addEventListener('submit', function (event) {
     event.preventDefault();
     const body = getIframeContents('.tox-tinymce iframe');
+    const postOn = document.getElementById('schedule-post-input');
 
     const formData = new FormData();
     formData.append('_token', csrfToken);
     formData.append('body', body);
     formData.append('user_id', userId);
-    // TODO: add scheduled date to formData
+    formData.append('post_on', postOn.value);
 
     initBtnLoadingState('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
 
     axios.post(createPostRoute, formData)
       .then((response) => {
-        replacePostsContainer(response.data.posts);
+        if (!postOn) replacePostsContainer(response.data.posts);
         likes();
         clearPostForm();
-        notify('Post created successfully.');
+        notify(!postOn ? 'Post created successfully.' : 'Post has been scheduled successfully.');
       })
       .catch((err) => console.error(err))
       .finally(() => {
@@ -37,4 +38,6 @@ export function createPost() {
 function clearPostForm() {
   if (!createPostForm) return;
   clearIframeContents('.tox-tinymce iframe');
+  const postOn = document.getElementById('schedule-post-input');
+  postOn.value = ''
 }
