@@ -12,6 +12,10 @@ export function schedulePost() {
     schedulePostInputContainer.classList.add('d-flex');
   });
 
+  schedulePostInput.addEventListener('focus', function () {
+    schedulePostInput.showPicker();
+  });
+
   schedulePostCloseBtn.addEventListener('click', function (event) {
     event.preventDefault();
     schedulePostInputContainer.classList.add('d-none');
@@ -19,3 +23,4 @@ export function schedulePost() {
     schedulePostInput.value = '';
   });
 }
+

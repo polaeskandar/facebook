@@ -46,12 +46,11 @@ class PostController extends Controller {
       'post_on' => ['nullable', 'date']
     ]);
 
-    if (
-      $validated['post_on']
-      && (Carbon::parse($validated['post_on'])->subHour() < now()
-      || Carbon::parse($validated['post_on']) > now()->addYear())
-    ) {
-      return response(['err' => 'Cannot schedule post on the requested time. Please try again...'], 400);
+    if ($validated['post_on']) {
+      $startDate = Carbon::parse($validated['post_on'])->subHour();
+      $endDate = now()->addYear();
+      $check = Carbon::parse($validated['post_on'])->between($startDate, $endDate);
+      if (!$check) return response(['err' => 'Cannot schedule post on the requested time. Please try again...'], 400);
     }
 
     $post = Post::create([

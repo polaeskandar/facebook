@@ -2537,18 +2537,18 @@ function createPost() {
   _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm.addEventListener('submit', function (event) {
     event.preventDefault();
     var body = (0,_Utils_utils__WEBPACK_IMPORTED_MODULE_5__.getIframeContents)('.tox-tinymce iframe');
-    var postOn = document.getElementById('schedule-post-input');
+    var schedulePostsInput = document.getElementById('schedule-post-input');
     var formData = new FormData();
     formData.append('_token', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.csrfToken);
     formData.append('body', body);
     formData.append('user_id', _Utils_constants__WEBPACK_IMPORTED_MODULE_2__.userId);
-    formData.append('post_on', postOn.value);
+    formData.append('post_on', schedulePostsInput.value);
     (0,_Utils_loading_state__WEBPACK_IMPORTED_MODULE_3__.initBtnLoadingState)('create-post-form-submit', 'create-post-form-submit-icon', 'create-post-form-submit-spinner');
     axios.post(_Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostRoute, formData).then(function (response) {
-      if (!postOn) (0,_replace_posts_container__WEBPACK_IMPORTED_MODULE_4__.replacePostsContainer)(response.data.posts);
+      if (!schedulePostsInput.value) (0,_replace_posts_container__WEBPACK_IMPORTED_MODULE_4__.replacePostsContainer)(response.data.posts);
       (0,_likes__WEBPACK_IMPORTED_MODULE_0__.likes)();
+      (0,_Utils_notification__WEBPACK_IMPORTED_MODULE_1__.notify)(!schedulePostsInput.value ? 'Post created successfully.' : 'Post has been scheduled successfully.');
       clearPostForm();
-      (0,_Utils_notification__WEBPACK_IMPORTED_MODULE_1__.notify)(!postOn ? 'Post created successfully.' : 'Post has been scheduled successfully.');
     })["catch"](function (err) {
       return console.error(err);
     })["finally"](function () {
@@ -2560,8 +2560,7 @@ function createPost() {
 function clearPostForm() {
   if (!_Utils_constants__WEBPACK_IMPORTED_MODULE_2__.createPostForm) return;
   (0,_Utils_utils__WEBPACK_IMPORTED_MODULE_5__.clearIframeContents)('.tox-tinymce iframe');
-  var postOn = document.getElementById('schedule-post-input');
-  postOn.value = '';
+  document.getElementById('schedule-post-input').value = null;
 }
 
 /***/ }),
@@ -2763,6 +2762,9 @@ function schedulePost() {
     event.preventDefault();
     schedulePostInputContainer.classList.remove('d-none');
     schedulePostInputContainer.classList.add('d-flex');
+  });
+  schedulePostInput.addEventListener('focus', function () {
+    schedulePostInput.showPicker();
   });
   schedulePostCloseBtn.addEventListener('click', function (event) {
     event.preventDefault();

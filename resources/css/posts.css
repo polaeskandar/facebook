@@ -7,6 +7,24 @@
   flex-shrink: 0;
 }
 
+.posts .posts-container .post .post-content img.author-image {
+  width: 40px;
+  border-radius: 9999px;
+  height: 40px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px -1px rgb(0 0 0 / 10%);
+}
+
+.posts .posts-container .post div.author-first-letter {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  color: #fff;
+}
+
 .posts .posts-container .post .post-actions .like {
   cursor: pointer;
 }

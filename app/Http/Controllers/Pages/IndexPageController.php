@@ -28,7 +28,7 @@ class IndexPageController extends Controller {
    */
   public function index(): Factory|View|Application {
     $posts = Post::with(['comments', 'comments.user', 'user'])
-      ->where('posted_on', '<=', Carbon::now())
+      ->where('posted_on', '<', Carbon::now())
       ->orWhere('posted_on', NULL)
       ->orderBy('posted_on', 'desc')
       ->take(10)
